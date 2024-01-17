@@ -20,7 +20,7 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "eu.ansquare.sbd.SimpleBlockData",
-			"cardinal-components-entity":"eu.ansquare.sbd.SimpleBlockData"
+			"cardinal-components-chunk":"eu.ansquare.sbd.SimpleBlockData"
 		},
 		"depends": [
 			{

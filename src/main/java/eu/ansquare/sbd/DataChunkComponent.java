@@ -14,32 +14,40 @@ import java.util.Map;
 
 public class DataChunkComponent implements AutoSyncedComponent {
 	private static Map<String, NbtCompound> map = new HashMap<>();
+
 	@Override
 	public void readFromNbt(NbtCompound tag) {
 		List<NbtElement> list = tag.getList("blocks", 8);
 		map = new HashMap<>();
-		for (NbtElement e :list) {
-			if(e instanceof NbtString string){
-				tag.getCompound(string.asString());
+		for (NbtElement e : list) {
+			if (e instanceof NbtString string) {
+				map.put(string.asString(), tag.getCompound(string.asString()));
 			}
-		};
+		}
+		;
 	}
+
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		NbtList list = new NbtList();
-		map.keySet().forEach(s -> {list.add(NbtString.of(s));
-		tag.put(s, map.get(s));});
+		map.keySet().forEach(s -> {
+			list.add(NbtString.of(s));
+			tag.put(s, map.get(s));
+		});
 		tag.put("blocks", list);
 	}
-	public NbtCompound get(BlockPos pos){
+
+	public NbtCompound get(BlockPos pos) {
 		String key = blockPosToKey(pos);
-		return map.get(key);
+		return map.containsKey(key) ? map.get(key) : new NbtCompound();
 	}
-	public void set(BlockPos pos, NbtCompound compound){
+
+	public void set(BlockPos pos, NbtCompound compound) {
 		String key = blockPosToKey(pos);
 		map.put(key, compound);
 	}
-	public static String blockPosToKey(BlockPos pos){
+
+	public static String blockPosToKey(BlockPos pos) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(pos.getX());
 		builder.append(":");
