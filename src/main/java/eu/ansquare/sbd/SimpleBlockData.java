@@ -47,21 +47,6 @@ public class SimpleBlockData implements ModInitializer, ChunkComponentInitialize
 	@Override
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("Hello Quilt world from {}!", mod.metadata().name());
-		AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-			if(!world.isClient()){
-				LOGGER.info(pos.toString());
-				BlockDataApi.setBoolean(pos, world, "test", true);
-			}
-			return ActionResult.PASS;
-		});
-
-		UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-			if(!world.isClient()){
-				LOGGER.info(hitResult.getBlockPos().toString());
-				player.sendMessage(Text.literal(String.valueOf(BlockDataApi.getBoolean(hitResult.getBlockPos(), world, "test"))), false);
-			}
-			return ActionResult.PASS;
-		});
 	}
 
 	@Override
