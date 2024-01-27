@@ -1,5 +1,7 @@
 package eu.ansquare.sbd;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
+import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataChunkComponent implements AutoSyncedComponent {
+public class DataChunkComponent implements Component {
 	private static Map<String, NbtCompound> map = new HashMap<>();
 
 	@Override
@@ -30,10 +32,10 @@ public class DataChunkComponent implements AutoSyncedComponent {
 	@Override
 	public void writeToNbt(NbtCompound tag) {
 		NbtList list = new NbtList();
-		map.keySet().forEach(s -> {
+		for (String s: map.keySet()){
 			list.add(NbtString.of(s));
 			tag.put(s, map.get(s));
-		});
+		}
 		tag.put("blocks", list);
 	}
 

@@ -42,7 +42,7 @@ public class SimpleBlockData implements ModInitializer, ChunkComponentInitialize
 	public static final Logger LOGGER = LoggerFactory.getLogger("Simple block data");
 	public static final String MODID = "sbd";
 	public static final ComponentKey<DataChunkComponent> DATA_CHUNK_COMPONENT =
-			ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MODID, "the_thing"), DataChunkComponent.class);
+			ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(MODID, "data_chunk"), DataChunkComponent.class);
 
 	@Override
 	public void onInitialize(ModContainer mod) {

@@ -37,5 +37,5 @@
 			}
 		]
 	},
-	"cardinal-components": ["sbd:the_thing"]
+	"cardinal-components": ["sbd:data_chunk"]
 }
