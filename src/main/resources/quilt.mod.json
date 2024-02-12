@@ -37,5 +37,7 @@
 			}
 		]
 	},
-	"cardinal-components": ["sbd:data_chunk"]
+	"cardinal-components": ["sbd:data_chunk"],
+	"mixin": "sbd.mixins.json"
+
 }

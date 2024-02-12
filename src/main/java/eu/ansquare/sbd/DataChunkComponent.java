@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DataChunkComponent implements Component {
-	private static Map<String, NbtCompound> map = new HashMap<>();
+	private Map<String, NbtCompound> map = new HashMap<>();
 
 	@Override
 	public void readFromNbt(NbtCompound tag) {

@@ -1,9 +1,11 @@
 {
-	"required": false,
+	"required": true,
 	"minVersion": "0.8",
-	"package": "eu.ansquare.sbd",
+	"package": "eu.ansquare.sbd.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": [],
+	"mixins": [
+      "WorldMixin"
+    ],
 	"client": [],
 	"injectors": {
 		"defaultRequire": 1

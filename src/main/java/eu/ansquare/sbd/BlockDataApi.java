@@ -3,11 +3,12 @@ package eu.ansquare.sbd;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 
 public class BlockDataApi {
+	public static boolean hasData(BlockPos pos, World world){
+		return !getCompound(pos, world).getKeys().isEmpty();
+	}
 	public static NbtCompound getCompound(BlockPos pos, World world){
 		if(!SimpleBlockData.DATA_CHUNK_COMPONENT.maybeGet(world.getChunk(pos)).isPresent()) return new NbtCompound();
 		DataChunkComponent component = SimpleBlockData.DATA_CHUNK_COMPONENT.get(world.getChunk(pos));
@@ -55,4 +56,19 @@ public class BlockDataApi {
 		compound.put(key, value);
 		updateCompound(pos, world, compound);
 	}
+	public static void clear(BlockPos pos, World world, ChangeType changeType){
+		PersistenceType type;
+				try{
+					type = PersistenceType.valueOf(getString(pos, world, "persistence_type"));
+				} catch (IllegalArgumentException e){
+					type = PersistenceType.NONE;
+				}
+		if(hasData(pos, world)) updateCompound(pos, world, new NbtCompound());
+	}
+	public static void transferData(BlockPos from, BlockPos to, World world){
+		NbtCompound compound = getCompound(from, world);
+		updateCompound(from, world, new NbtCompound());
+		updateCompound(to, world, compound);
+	}
+
 }

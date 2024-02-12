@@ -12,15 +12,24 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.QuiltLoader;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -47,6 +56,24 @@ public class SimpleBlockData implements ModInitializer, ChunkComponentInitialize
 	@Override
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("Hello Quilt world from {}!", mod.metadata().name());
+		if(QuiltLoader.isDevelopmentEnvironment()){
+			Registry.register(Registries.ITEM, new Identifier(MODID, "sbd_data_tester"), new Item(new QuiltItemSettings().maxCount(1)){
+				@Override
+				public ActionResult useOnBlock(ItemUsageContext context) {
+					if(!context.getWorld().isClient){
+						if(context.getPlayer().isSneaking()){
+							BlockDataApi.setString(context.getBlockPos(), context.getWorld(), "debug_value_avoid", "yes do avoid");
+						} else {
+							NbtCompound compound = BlockDataApi.getCompound(context.getBlockPos(), context.getWorld());
+							LOGGER.info(compound.toString());
+							BlockDataApi.clear(context.getBlockPos(), context.getWorld(), ChangeType.DIFFERENT_TYPE);
+						}
+						return ActionResult.SUCCESS;
+					}
+					return ActionResult.PASS;
+				}
+			});
+		}
 	}
 
 	@Override
