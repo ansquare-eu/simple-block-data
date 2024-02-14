@@ -1,6 +1,6 @@
 Attach data to block positions.
 
-WARNING! THIS LIBRARY IS IN ALPHA. Issues might be present. Report any issues to https://github.com/ansquare-eu/simple-block-data/issues
+WARNING! THIS LIBRARY IS IN BETA. Issues might be present. Report any issues to https://github.com/ansquare-eu/simple-block-data/issues
 
 Usage:
 
