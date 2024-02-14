@@ -1,4 +1,4 @@
-/*
+
 package eu.ansquare.sbd.mixin;
 
 import eu.ansquare.sbd.BlockDataApi;
@@ -23,4 +23,4 @@ public class PistonBlockMixin {
 		}
 	}
 }
-*/
+

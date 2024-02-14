@@ -4,7 +4,9 @@
 	"package": "eu.ansquare.sbd.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-      "WorldMixin"
+      "BlockMixin",
+      "ServerPlayerInteractionManagerMixin",
+      "PistonBlockMixin"
     ],
 	"client": [],
 	"injectors": {

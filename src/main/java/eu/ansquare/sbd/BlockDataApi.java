@@ -57,12 +57,12 @@ public class BlockDataApi {
 		updateCompound(pos, world, compound);
 	}
 	public static void clear(BlockPos pos, World world, ChangeType changeType){
-		PersistenceType type;
+		/*PersistenceType type;
 				try{
 					type = PersistenceType.valueOf(getString(pos, world, "persistence_type"));
 				} catch (IllegalArgumentException e){
 					type = PersistenceType.NONE;
-				}
+				}*/
 		if(hasData(pos, world)) updateCompound(pos, world, new NbtCompound());
 	}
 	public static void transferData(BlockPos from, BlockPos to, World world){
